@@ -49,25 +49,7 @@
 
 ---
 
-## 📁 ディレクトリ構成（例）
 
-```
-ListViewEdit/
-├─ README.md              ← このファイル
-├─ docs/                  ← 各ユニットの説明ファイル（.md）
-│   ├─ ListViewEx.md
-│   ├─ ListViewEdit.md
-│   ├─ ListViewRTTI.md
-│   ├─ ListViewRTTIList.md
-│   ├─ ListViewEditPlugin.md
-│   └─ ListViewEditPluginLib.md
-├─ src/                   ← 各 .pas/.dfm ファイル
-│   ├─ ListViewEx.pas
-│   ├─ ListViewEdit.pas
-│   └─ ...
-```
-
----
 
 ## 🛠 対応環境
 
@@ -78,4 +60,4 @@ ListViewEdit/
 
 ## 📜 ライセンス
 
-MITライセンス または プロジェクト独自ライセンスをここに記載
+MITライセンス 
