@@ -1,0 +1,86 @@
+object FormMain: TFormMain
+  Left = 0
+  Top = 0
+  Caption = 'FormMain'
+  ClientHeight = 231
+  ClientWidth = 505
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 400
+    Top = 0
+    Width = 105
+    Height = 231
+    Align = alRight
+    TabOrder = 0
+    object Button1: TButton
+      Left = 1
+      Top = 1
+      Width = 103
+      Height = 25
+      Align = alTop
+      Caption = #9650
+      TabOrder = 0
+      OnClick = Button1Click
+      ExplicitTop = 0
+    end
+    object Button2: TButton
+      Left = 1
+      Top = 26
+      Width = 103
+      Height = 25
+      Align = alTop
+      Caption = #9660
+      TabOrder = 1
+      OnClick = Button2Click
+      ExplicitLeft = 32
+      ExplicitTop = 96
+      ExplicitWidth = 75
+    end
+    object Button3: TButton
+      Left = 1
+      Top = 51
+      Width = 103
+      Height = 25
+      Align = alTop
+      Caption = #19968#30058#19978#12408#31227#21205
+      TabOrder = 2
+      OnClick = Button3Click
+      ExplicitLeft = 16
+      ExplicitTop = 80
+      ExplicitWidth = 75
+    end
+    object Button4: TButton
+      Left = 1
+      Top = 76
+      Width = 103
+      Height = 25
+      Align = alTop
+      Caption = #19968#30058#19979#12408#31227#21205
+      TabOrder = 3
+      OnClick = Button4Click
+      ExplicitTop = 82
+    end
+    object Button5: TButton
+      Left = 1
+      Top = 101
+      Width = 103
+      Height = 25
+      Align = alTop
+      Caption = #35201#32032#12434#25407#20837
+      TabOrder = 4
+      OnClick = Button5Click
+      ExplicitTop = 107
+    end
+  end
+end
