@@ -1,0 +1,67 @@
+object FormMain: TFormMain
+  Left = 0
+  Top = 0
+  Caption = #12463#12521#12473#12398#35201#32032#12434#32232#38598#21487#33021#12394'ListView'
+  ClientHeight = 231
+  ClientWidth = 505
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 97
+    Height = 231
+    Align = alLeft
+    TabOrder = 0
+    object Button1: TButton
+      Left = 1
+      Top = 1
+      Width = 95
+      Height = 25
+      Align = alTop
+      Caption = #21517#31216#22793#26356
+      TabOrder = 0
+      OnClick = Button1Click
+    end
+    object Button2: TButton
+      Left = 1
+      Top = 26
+      Width = 95
+      Height = 25
+      Align = alTop
+      Caption = #33394#22793#26356
+      TabOrder = 1
+      OnClick = Button2Click
+      ExplicitLeft = 16
+      ExplicitTop = 88
+      ExplicitWidth = 75
+    end
+    object Button3: TButton
+      Left = 1
+      Top = 51
+      Width = 95
+      Height = 25
+      Hint = 'Level'#12398#32232#38598#26041#27861#12434#22793#26356
+      Align = alTop
+      Caption = #32232#38598#22793#26356
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+      OnClick = Button3Click
+      ExplicitLeft = 24
+      ExplicitTop = 72
+      ExplicitWidth = 75
+    end
+  end
+end

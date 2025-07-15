@@ -1,0 +1,49 @@
+object FormListViewEditPluginFolder: TFormListViewEditPluginFolder
+  Left = 0
+  Top = 0
+  Caption = #12501#12457#12523#12480#12434#36984#25246
+  ClientHeight = 231
+  ClientWidth = 505
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 200
+    Width = 505
+    Height = 31
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 0
+    OnResize = Panel1Resize
+    object btnOk: TButton
+      Left = 0
+      Top = 0
+      Width = 177
+      Height = 31
+      Align = alLeft
+      Caption = 'OK'
+      Default = True
+      ModalResult = 1
+      TabOrder = 0
+    end
+    object btnCancel: TButton
+      Left = 177
+      Top = 0
+      Width = 328
+      Height = 31
+      Align = alClient
+      Cancel = True
+      Caption = #12461#12515#12531#12475#12523
+      ModalResult = 2
+      TabOrder = 1
+    end
+  end
+end

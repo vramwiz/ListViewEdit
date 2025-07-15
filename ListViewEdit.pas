@@ -102,7 +102,7 @@ type
     function XToColumn(const X : Integer) : Integer;
     // カーソルの列位置を取得
     function GetColumAt(const X,Y : Integer) : Integer;
-
+    // 指定したセルに対する編集方法を取得
     function GetCellRTTI(aCol,aRow : Integer) : TListViewRTTIItem;
     // True : 値を編集中
     //property Edited : Boolean read FEdited;
@@ -511,7 +511,7 @@ begin
     r := Rect;
     r.Right := Columns[0].Width;                      // 左端のセルの幅を取得
     r.Bottom := r.Bottom - 1;
-    cv.Brush.Color := FRowSettings[Item.Index].ColorBack;
+    cv.Brush.Color := FRowSettings[FVisibleIndexes[Item.Index]].ColorBack;
     cv.FillRect(r);
     cv.Pen.Color := clWhite;
     cv.Pen.Width := 1;
@@ -536,7 +536,6 @@ var
   dt : TListViewRTTIItem;
   r : TRect;
 begin
-  //RowColToRTTI();
   ScrollX := GetScrollPos(Sender.Handle, SB_HORZ);
   cv := TLIstView(Sender).Canvas;                   // 描画キャンバス参照
   DrawBack(cv,Item,Rect,State);                     // カーソルに合わせて背景描画
@@ -561,11 +560,11 @@ begin
     r := Rect;                                      // 描画範囲を参照
     r.Left := ColumnLeft(j) - ScrollX;
     if j = 0 then r.Left := r.Left + xh;
-    r.Right := ColumnRight(j) - ScrollX - 8;                 // 左端マージンを設定
+    r.Right := ColumnRight(j) - ScrollX - 8;        // 左端マージンを設定
 
     if IsFixedCell(j,i) then begin                  // 左端の表題の場合
       cv.Font.Color  := dt.ColorFont;               // 色設定を反映
-      cv.Brush.Color := dt.ColorBack;
+      //cv.Brush.Color := dt.ColorBack;
       cv.Brush.Style := bsClear;
       s := Item.Caption;
 
@@ -576,7 +575,7 @@ begin
     else begin                                      // 表題では無い場合
 
       cv.Font.Color  := clBlack;
-      cv.Brush.Color := clWhite;
+      //cv.Brush.Color := clWhite;
       cv.Brush.Style := bsClear;
 
       s := Cells[j,Item.Index];

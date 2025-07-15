@@ -35,17 +35,16 @@ type
    TListViewRTTI = class(TListViewEdit)
   private
     { Private 宣言 }
+    FFixedWidth   : Integer;
     FOnDataChange : TNotifyEvent;
 
     procedure SetColumn();
-
-    procedure OnSelfResize(Sender: TObject);
-
 
     procedure SetFixedWidth(const Value: Integer);
     function GetRTTINames(Name: string): TListViewRTTIItem;
 
   protected
+    procedure Resize; override;
     // 横スクロールバー非表示
     //procedure UpdateScrollBar;
     procedure DoChange(const EditStr : string;const aColumn,aIndex : Integer);override;
@@ -81,15 +80,11 @@ uses ListViewEditPluginLib;
 constructor TListViewRTTI.Create(AOwner: TComponent);
 begin
   inherited;
-
-  FixedStyle := fsVerticalFixedColumn;
+  FFixedWidth := 160;
   ColumnClick := False;
-  DoubleBuffered := True;
   RowSelect := True;
   ViewStyle := vsReport;
-
-  OnResize := OnSelfResize;
-
+  DoubleBuffered := True;
 end;
 
 //--------------------------------------------------------------------------//
@@ -112,8 +107,9 @@ begin
   s := EditStr;                                   // 編集後の値を取得
   FRowSettings.RttiWrite(dr.PName,s);             // 実行時型情報に値を書き込み
   dr.Value := s;                                 // 実行時型情報クラスに書き込み
+  Refresh();
   //dr.DoRequestEdited();
-  //DoDataChange();
+  inherited;
 
 end;
 
@@ -125,15 +121,21 @@ procedure TListViewRTTI.LoadFromObject(aObject: TObject);
 var
   i : Integer;
 begin
-  ViewStyle := vsReport;
-  SetColumn();
-  Items.Clear;
-  Clear();
-  FRowSettings.RttiRead(aObject);
-  FVisibleIndexes.Clear;
-  for i := 0 to FRowSettings.Count-1 do begin
-    if  FRowSettings[i].EditType = 0 then continue;
-    FVisibleIndexes.Add(i);                   // 非表示分を換算
+//  ViewStyle := vsReport;
+  FixedStyle := fsVerticalFixedColumn;
+  Items.BeginUpdate();
+  try
+    SetColumn();
+    Items.Clear;
+    Clear();
+    FRowSettings.RttiRead(aObject);
+    FVisibleIndexes.Clear;
+    for i := 0 to FRowSettings.Count-1 do begin
+      if  FRowSettings[i].EditType = 0 then continue;
+      FVisibleIndexes.Add(i);                   // 非表示分を換算
+    end;
+  finally
+    Items.EndUpdate();
   end;
   Refresh();
 end;
@@ -167,9 +169,18 @@ begin
   end;
   Items.EndUpdate();
   HorzScrollBarVisible := False;                         // 横スクロールバー非表示
+  AutoAdjustColumnWidth(1);
   inherited;
 end;
 
+
+procedure TListViewRTTI.Resize;
+begin
+  inherited;
+  HorzScrollBarVisible := False;                         // 横スクロールバー非表示
+  AutoAdjustColumnWidth(1);
+
+end;
 
 function TListViewRTTI.AddCaption(const PName, Caption: string; Hint: string; aType: Integer) : TListViewRTTIItem;
 var
@@ -198,11 +209,6 @@ begin
 end;
 
 
-procedure TListViewRTTI.OnSelfResize(Sender: TObject);
-begin
-  //ColumnAlign(1);
-end;
-
 //--------------------------------------------------------------------------//
 //  固定行の設定                                                            //
 //--------------------------------------------------------------------------//
@@ -214,7 +220,7 @@ begin
 
   dc := Columns.Add;                 // ファイル名の表題を追加
   dc.Caption := '名称';              // 表題の名称を設定
-  dc.Width := 160;                   // 表題の幅を設定
+  dc.Width := FFixedWidth;           // 表題の幅を設定
 
   dc := Columns.Add;                 // ファイル名の表題を追加
   dc.Caption := '値';                // 表題の名称を設定
@@ -224,6 +230,7 @@ end;
 
 procedure TListViewRTTI.SetFixedWidth(const Value: Integer);
 begin
+  FFixedWidth := Value;
   Columns[0].Width := Value;
 end;
 
