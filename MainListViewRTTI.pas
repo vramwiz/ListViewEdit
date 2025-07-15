@@ -134,16 +134,16 @@ end;
 procedure TFormMain.Button2Click(Sender: TObject);
 begin
   FListView.RTTINames['Enabled'].ColorFont   := clBlack;
-  FListView.RTTINames['Enabled'].ColorBack   := clWhite;
+  FListView.RTTINames['Enabled'].ColorBack   := clMoneyGreen;
 
-  FListView.RTTINames['Level'].ColorFont     := clBlack;
+  FListView.RTTINames['Level'].ColorFont     := clWhite;
   FListView.RTTINames['Level'].ColorBack     := clNavy;
 
-  FListView.RTTINames['NoEdit'].ColorFont    := clMaroon;
-  FListView.RTTINames['NoEdit'].ColorBack    := clMoneyGreen;
+  FListView.RTTINames['NoEdit'].ColorFont    := clBlack;
+  FListView.RTTINames['NoEdit'].ColorBack    := clSkyBlue;
 
   FListView.RTTINames['Text'].ColorFont      := clWhite;
-  FListView.RTTINames['Text'].ColorBack      := clOlive;
+  FListView.RTTINames['Text'].ColorBack      := clWebPink;
 
   FListView.RTTINames['Color'].ColorFont     := clBlack;
   FListView.RTTINames['Color'].ColorBack     := clSkyBlue;
@@ -164,6 +164,9 @@ end;
 
 procedure TFormMain.Button3Click(Sender: TObject);
 begin
+  FListView.RTTINames['Enabled'].Strings.Clear;
+  FListView.RTTINames['Enabled'].Strings.Add('‚¢‚¢‚¦');
+  FListView.RTTINames['Enabled'].Strings.Add('‚Í‚¢');
   FListView.RTTINames['Level'].EditType := ListViewEditPluginComboBoxId;
   FListView.RTTINames['Level'].Strings.Clear;
   FListView.RTTINames['Level'].Strings.Add('Žã');
