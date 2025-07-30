@@ -70,8 +70,6 @@ type
 
     function GetColumnRect(Index: Integer; out ALeft, ARight: Integer): Boolean;
 
-    // 行描画イベント
-    procedure OnSelfDrawItem(Sender: TCustomListView; Item: TListItem;Rect: TRect; State: TOwnerDrawState);
     // プラグインから編集完了イベントを受け取る
     procedure OnEditTypeEdited(Sender : TObject;const EditStr : string);
     // プラグインから編集キャンセルイベントを受け取る
@@ -111,6 +109,7 @@ type
     procedure DblClick; override;
     // マウス移動時に呼ぶ処理 ヒント表示用
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
+    procedure DrawItem(Item: TListItem;Rect: TRect; State: TOwnerDrawState);override;
   public
     { Public 宣言 }
     constructor Create(AOwner: TComponent); override;
@@ -150,7 +149,6 @@ begin
 
 
   OnEditing := OnSelfEditing;
-  OnDrawItem := OnSelfDrawItem;
   OwnerDraw := True;
 
   FProc := WindowProc;
@@ -527,8 +525,8 @@ end;
 //--------------------------------------------------------------------------//
 //  描画処理                                                                //
 //--------------------------------------------------------------------------//
-procedure TListViewEdit.OnSelfDrawItem(Sender: TCustomListView; Item: TListItem;
-  Rect: TRect; State: TOwnerDrawState);
+procedure TListViewEdit.DrawItem(Item: TListItem; Rect: TRect;
+  State: TOwnerDrawState);
 var
   cv : TCanvas;
   i,j,x,xh,ScrollX : Integer;
@@ -536,8 +534,8 @@ var
   dt : TListViewRTTIItem;
   r : TRect;
 begin
-  ScrollX := GetScrollPos(Sender.Handle, SB_HORZ);
-  cv := TLIstView(Sender).Canvas;                   // 描画キャンバス参照
+  ScrollX := GetScrollPos(Self.Handle, SB_HORZ);
+  cv := TLIstView(Self).Canvas;                   // 描画キャンバス参照
   DrawBack(cv,Item,Rect,State);                     // カーソルに合わせて背景描画
   x := 5;                                           // マージンを指定
   cv.Brush.Style := bsClear;
@@ -547,7 +545,7 @@ begin
   if SmallImages<>nil then begin
     if Items[i].ImageIndex < Images.Count then begin
       r := Item.DisplayRect(drIcon);
-      SmallImages.Draw(Sender.Canvas, R.Left, R.Top, Item.ImageIndex);
+      SmallImages.Draw(Self.Canvas, R.Left, R.Top, Item.ImageIndex);
       xh := r.Width + 4;
     end;
   end;

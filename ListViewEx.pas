@@ -40,8 +40,6 @@ type
     FItemHeight       : Integer;             // s‚Ì‚‚³
     // ”wŒi•`‰æ
     procedure DrawBack(cv : TCanvas;Item: TListItem;Rect: TRect; State: TOwnerDrawState);
-    // s•`‰æƒCƒxƒ“ƒg
-    procedure OnSelfDrawItem(Sender: TCustomListView; Item: TListItem;Rect: TRect; State: TOwnerDrawState);
     procedure SetRowColorStriped(const Value: Boolean);
     function GetItemHeight: Integer;
     procedure SetItemHeight(const Value: Integer);
@@ -56,6 +54,7 @@ type
     function GetTopIndex: Integer;
   protected
     procedure Resize; override;
+    procedure DrawItem(Item: TListItem;Rect: TRect; State: TOwnerDrawState);override;
   public
     { Public éŒ¾ }
     constructor Create(AOwner: TComponent); override;
@@ -124,7 +123,6 @@ begin
   BevelOuter := bvNone;
   BevelInner := bvNone;
   FImages := TImageList.Create(Self);
-  OnDrawItem := OnSelfDrawItem;
 end;
 
 //--------------------------------------------------------------------------//
@@ -343,14 +341,15 @@ end;
 //--------------------------------------------------------------------------//
 //  1s–ˆ‚ÉF‚ğ•Ï‚¦‚éê‡‚Ì•`‰æˆ—                                         //
 //--------------------------------------------------------------------------//
-procedure TListViewEx.OnSelfDrawItem(Sender: TCustomListView; Item: TListItem;
-  Rect: TRect; State: TOwnerDrawState);
+procedure TListViewEx.DrawItem(Item: TListItem; Rect: TRect;
+  State: TOwnerDrawState);
 var
   cv : TCanvas;
   i,x : Integer;
   s : string;
 begin
-  cv := TLIstView(Sender).Canvas;
+  inherited;
+  cv := TLIstView(Self).Canvas;
 
   DrawBack(cv,Item,Rect,State);
   x := 5;
