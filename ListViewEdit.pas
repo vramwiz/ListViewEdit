@@ -490,6 +490,7 @@ procedure TListViewEdit.DrawBack(cv: TCanvas; Item: TListItem; Rect: TRect;
   State: TOwnerDrawState);
 var
   r : TRect;
+  i : Integer;
 begin
   cv.Brush.Style := bsSolid;
   if odSelected in State then begin
@@ -507,9 +508,15 @@ begin
   cv.FillRect(Rect);
   if FFixedStyle = fsVerticalFixedColumn then begin   // 左端を固定行とする場合
     r := Rect;
+    if Columns.Count = 0 then exit;
+
     r.Right := Columns[0].Width;                      // 左端のセルの幅を取得
     r.Bottom := r.Bottom - 1;
-    cv.Brush.Color := FRowSettings[FVisibleIndexes[Item.Index]].ColorBack;
+    if FVisibleIndexes.Count = 0 then exit;
+    i := FVisibleIndexes[Item.Index];
+    if i = -1 then exit;
+
+    cv.Brush.Color := Settings[i].ColorBack;
     cv.FillRect(r);
     cv.Pen.Color := clWhite;
     cv.Pen.Width := 1;
@@ -534,6 +541,8 @@ var
   dt : TListViewRTTIItem;
   r : TRect;
 begin
+  if not(Canvas.HandleAllocated) or not(Self.HandleAllocated) then exit;
+
   ScrollX := GetScrollPos(Self.Handle, SB_HORZ);
   cv := TLIstView(Self).Canvas;                   // 描画キャンバス参照
   DrawBack(cv,Item,Rect,State);                     // カーソルに合わせて背景描画

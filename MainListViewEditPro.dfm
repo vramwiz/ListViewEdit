@@ -33,8 +33,6 @@ object FormMain: TFormMain
       ItemHeight = 13
       TabOrder = 0
       OnClick = ListBox1Click
-      ExplicitLeft = 2
-      ExplicitTop = 2
     end
   end
 end

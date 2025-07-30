@@ -50,8 +50,8 @@ end;
 
 procedure TFormMain.FormShow(Sender: TObject);
 begin
-  ShowData(1);
   ShowListBox();
+  ShowData(3);
 end;
 
 procedure TFormMain.ListBox1Click(Sender: TObject);
