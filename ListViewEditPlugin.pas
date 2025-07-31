@@ -108,7 +108,8 @@ begin
   FOnEditCancel := aOnEditCancel;
   for i := 0 to Count-1 do begin
     if i = EditType then begin
-    d := Items[i];
+      d := Items[i];
+      d.FParent := Parent;
       d.DoEditing(Parent,Component,r,dr);
       d.OnEdited := FOnEdited;
       d.OnEditCancel := FOnEditCancel;
